@@ -41,23 +41,25 @@ is the source of truth.
 **When in Planning Mode:**
 Planning mode creates plans but does NOT implement or edit files.
 
-**User signals task acceptance** with phrases like:
-- "Add this task"
-- "Task accepted"
-- "Queue this"
-- "Add to task list"
-- Or any clear indication the plan is approved
+**Workflow:**
+1. User and Claude collaborate on task plan in planning mode
+2. **User manually switches to agent mode** (Claude cannot do this)
+3. User signals task creation with phrases like:
+   - "Add the task"
+   - "Create the task"
+   - "Task accepted"
+   - Or any clear indication to proceed
 
-**When user accepts the plan:**
-1. Exit planning mode
-2. Add task to `.chronicle/active-tasks.md` under "Ready to Start"
-3. Format: `- [ ] [Task name]` with sub-tasks and context from plan
-4. Confirm task added
-5. **STOP - do NOT start implementation**
-6. Wait for explicit command like "Start working on [task]"
+**When user says "add the task" (in agent mode):**
+1. Create task file in `.chronicle/tasks/NNNN-task-name.md` based on the plan
+2. Confirm task created
+3. Ask: "Should I start working on this task now?"
+4. Wait for user response:
+   - "Yes" / "Start" → Begin implementation
+   - "No" / "Just queue it" → Stop, task queued for later
 
 **Starting work later:**
-User says "Start working on [task name]" → Move to "In Progress" and begin implementation
+User says "Start working on [task name]" → Begin implementation
 
 ### Current Work
 
