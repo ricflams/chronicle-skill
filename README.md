@@ -10,10 +10,10 @@ A Claude skill that maintains project context in markdown files. Define  scope a
 
 Chronicle enables seamless project continuity through four core capabilities:
 
-Define the **project** — Helps you define the shape of what your building
-Organize **tasks** — Identify and keep track of individual tasks, to be tackled one by one
-Document the **journey** — Capture what happened - decisions, what worked or not, etc
-Preserve the **AI Context** — All of the above express your project and its state to an AI, across sessions
+- Define the **project** — Helps you define the shape of what your building
+- Organize **tasks** — Identify and keep track of individual tasks, to be tackled one by one
+- Document the **journey** — Capture what happened - decisions, what worked or not, etc
+- Preserve the **AI Context** — All of the above express your project and its state to an AI, across sessions
 
 From your chronicle alone, anyone - human or AI - should be able to understand your project well enough to continue building it effectively.
 
