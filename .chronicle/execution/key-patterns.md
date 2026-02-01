@@ -4,6 +4,70 @@
 
 ---
 
+## Core Patterns Used in Chronicle
+
+### Jobs-to-be-Done Questioning
+**Pattern:** "What job is this project hired to do?" elicits better context than "what are your requirements?"
+
+**Where used:** Chronicle initialization questioning
+
+**Why chosen:** Focuses on outcomes rather than features, gets to the heart of project purpose
+
+**Benefits:** More meaningful answers, better project understanding, clearer success criteria
+
+---
+
+### Progress Bars for Depth Visualization
+**Pattern:** Visual feedback on question completeness helps users decide where to dig deeper
+
+**Where used:** Adaptive 3-phase questioning during initialization
+
+**Why chosen:** Gives users control over depth vs speed tradeoff
+
+**Implementation:**
+```
+Project Understanding: ████████░░ 80%
+Architecture Details: ███░░░░░░░ 30%
+Team Context: ██████████ 100%
+```
+
+**Benefits:** Transparency, user agency, visible progress
+
+---
+
+### Adaptive Questioning
+**Pattern:** Auto-detect software projects, skip irrelevant questions (team questions for solo projects), add domain-specific depth
+
+**Where used:** Chronicle initialization
+
+**Why chosen:** Reduces friction, makes initialization feel intelligent and personalized
+
+**Implementation:**
+- Detect project type from codebase
+- Skip team questions if solo project detected
+- Add domain-specific questions for software/DIY/creative
+
+**Benefits:** Faster initialization, better UX, relevant questions only
+
+---
+
+### Flat Archive with Timestamp
+**Pattern:** completed-tasks.md uses simple format (task name, date, duration) without subdirectories
+
+**Where used:** Task completion archiving
+
+**Why chosen:** Simple, searchable, no directory hierarchy to maintain
+
+**Implementation:**
+```markdown
+- [2025-02-01] Implement initialization logic (2h 15m)
+- [2025-02-01] Create file templates (1h 30m)
+```
+
+**Benefits:** Easy to scan, grep-friendly, no maintenance overhead
+
+---
+
 ## Design Patterns
 
 ### Bootstrap-and-Exit
@@ -297,3 +361,46 @@ With chronicle:
 **Test:** New team member reads .chronicle/, can they contribute meaningfully in 45min?
 
 **If no:** Add more context to chronicle
+
+---
+
+## Workflow Patterns
+
+### Planning Mode Task Acceptance
+**Pattern:** Separate planning from execution with clear handoff
+
+**Where used:** This project's workflow with planning mode
+
+**Why chosen:** Planning mode can't edit files, but we want seamless task creation
+
+**Implementation:**
+1. User requests plan in planning mode
+2. Iterate on plan until satisfied
+3. User signals acceptance: "Add this task" / "Task accepted" / "Queue this"
+4. Claude exits planning mode, adds task to active-tasks.md
+5. Confirms addition, **does not start work**
+6. User later says "Start working on [task]" to begin implementation
+
+**Benefits:**
+- Clean separation: Planning vs execution
+- User controls when work begins
+- Plans captured in task list without premature implementation
+- Single-phrase workflow (no creative prompting needed)
+
+**Example:**
+```
+User: [planning mode] "Plan a task for adding templates"
+Claude: [presents plan with steps]
+User: "Add error handling to the plan"
+Claude: [updates plan]
+User: "Add this task"
+Claude: ✅ Added "Create template system" to active-tasks.md
+User: [later] "Start working on template system"
+Claude: [moves to In Progress, begins work]
+```
+
+**Alternative phrases recognized:**
+- "Queue this" / "Queue it up"
+- "Task accepted" / "Accept this"
+- "Add to task list" / "Add this task"
+- Any clear signal the plan is approved

@@ -131,18 +131,6 @@
 
 ---
 
-## Session End Steps
-
-1. Summarize session
-2. Update session-log.md
-3. Move completed tasks
-4. Create ADRs (if significant decisions)
-5. Update diagrams (if structure changed)
-6. Document problems in lessons.md
-7. Weekly: Compress into project-truth.md (>7 days check)
-
----
-
 ## File Extensions
 
 **All chronicle files:** .md (markdown)

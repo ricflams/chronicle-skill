@@ -4,6 +4,56 @@
 
 ---
 
+## System Components
+
+### Chronicle Skill (bootstrap mechanism)
+**Purpose:** One-time initialization that creates self-contained chronicled project
+
+**Key Elements:** 
+- Phase 1-3 adaptive questioning
+- File structure generation
+- CLAUDE.md protocol writing
+- User guide creation
+
+**Dependencies:** None (self-contained skill)
+
+**Validation:** Project works after skill removal
+
+---
+
+### .chronicle/ Directory Structure
+**Purpose:** Organized documentation following truth/context/journey/execution layers
+
+**Key Elements:** 10 core markdown files across 4 subdirectories
+
+**Dependencies:** None
+
+**Validation:** Human-readable, AI-navigable, searchable
+
+---
+
+### CLAUDE.md Protocols
+**Purpose:** Complete operating instructions enabling Claude to maintain chronicle
+
+**Key Elements:** 200+ lines covering workflows, rules, formats
+
+**Dependencies:** CLAUDE.md auto-loading in Claude interface
+
+**Validation:** Claude follows protocols without skill present
+
+---
+
+### USING-CHRONICLE.md User Guide
+**Purpose:** Human-facing documentation of how to work with chronicle
+
+**Key Elements:** Purpose explanation, workflows, examples, cheat sheet
+
+**Dependencies:** None
+
+**Validation:** New users understand system in <10 minutes
+
+---
+
 ## Core Skill Definition
 
 ### SKILL.md

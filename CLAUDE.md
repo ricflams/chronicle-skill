@@ -4,6 +4,21 @@
 
 This is the chronicle skill - a Claude skill that bootstraps comprehensive project documentation systems for long-running AI-assisted projects. The skill creates self-contained `.chronicle/` directories that enable task organization, journey documentation, and AI context preservation.
 
+## ⚠️ Repository Structure
+
+**chronicle-skill/** = THE SKILL (pristine source for distribution)
+- SKILL.md = Skill definition
+- USING-CHRONICLE.md = User guide
+- Do NOT put .chronicle/ here - keep it clean for packaging
+
+**.chronicle/** = Development chronicle (at repo root)
+- Documents THIS project (building the skill)
+- Follows the structure defined in chronicle-skill/SKILL.md
+- Think: "This is a project using chronicle to build chronicle"
+
+**Sync Rule:** When chronicle-skill/SKILL.md structure changes → update .chronicle/ to match
+(Like re-running the skill on this project)
+
 ---
 
 <!-- ============================================================ -->
@@ -21,16 +36,39 @@ This is the chronicle skill - a Claude skill that bootstraps comprehensive proje
 This project maintains a chronicle in `.chronicle/` where documentation
 is the source of truth.
 
+### Planning Mode → Task List Workflow
+
+**When in Planning Mode:**
+Planning mode creates plans but does NOT implement or edit files.
+
+**User signals task acceptance** with phrases like:
+- "Add this task"
+- "Task accepted"
+- "Queue this"
+- "Add to task list"
+- Or any clear indication the plan is approved
+
+**When user accepts the plan:**
+1. Exit planning mode
+2. Add task to `.chronicle/active-tasks.md` under "Ready to Start"
+3. Format: `- [ ] [Task name]` with sub-tasks and context from plan
+4. Confirm task added
+5. **STOP - do NOT start implementation**
+6. Wait for explicit command like "Start working on [task]"
+
+**Starting work later:**
+User says "Start working on [task name]" → Move to "In Progress" and begin implementation
+
 ### Current Work
 
-Check `.chronicle/active-tasks.md` for what to work on next.
+Check `.chronicle/tasks/` folder for what to work on next. Use "list tasks" command for overview.
 
 ### Key Decisions
 
 See `.chronicle/context/decisions/` for architectural decisions, especially:
 - DEC-001: Bootstrap-and-exit pattern
 - DEC-002: Protocols in CLAUDE.md (this is why these protocols are here)
-- DEC-003: 10-file consolidated structure
+- DEC-010: Individual task files (.chronicle/tasks/ folder, not active-tasks.md)
 
 ### Recent Progress
 
@@ -39,19 +77,42 @@ See `.chronicle/journey/session-log.md` for detailed development chronicle.
 ### Before Starting Work
 
 1. Read `.chronicle/project-truth.md` for complete context (25 min)
-2. Check `.chronicle/active-tasks.md` for current work
+2. List tasks to see current work: "List tasks" or "Show tasks"
 3. Review `.chronicle/journey/session-log.md` for recent developments
 
 ### Task Management
 
+**List all tasks:**
+When user says "List tasks" / "Show tasks" / "What are the tasks?":
+1. Scan `.chronicle/tasks/` directory
+2. Read each task file to get title and creator
+3. Display numbered list with format: `0001: Task name (created by X on DATE)`
+
 **What should I work on?**
-→ Read `.chronicle/active-tasks.md`
+→ List tasks, suggest highest priority or ask user to pick
+
+**Create new task:**
+When planning mode produces task or user requests:
+1. Find highest number in `.chronicle/tasks/` directory
+2. Increment by 1 (e.g., 0011 → 0012)
+3. Create `.chronicle/tasks/NNNN-task-name.md` with format:
+   ```markdown
+   # Task: [Task Name]
+   
+   **Created:** YYYY-MM-DD by [User Name]
+   
+   ## Description
+   
+   [Task details and plan]
+   ```
+4. Confirm creation
 
 **When task completed:**
-1. Check off in active-tasks.md
-2. Move to journey/completed-tasks.md (format: [x] Task (Completed: DATE, Duration: Xh))
-3. Add entry to journey/session-log.md
-4. Suggest next task
+1. User says "[task] is complete" or "mark [task] complete"
+2. Move task file from `.chronicle/tasks/NNNN-name.md` → `.chronicle/journey/completed-tasks/NNNN-name.md`
+3. Update file with completion info (add "**Completed:** YYYY-MM-DD (Duration: Xh)" after Created line)
+4. Add entry to `.chronicle/journey/session-log.md`
+5. Suggest next task from remaining tasks
 
 **When problem encountered:**
 → Log in `.chronicle/journey/lessons.md`
@@ -62,24 +123,27 @@ See `.chronicle/journey/session-log.md` for detailed development chronicle.
 ### Session End
 
 When user says "update chronicle":
-1. Summarize session
-2. Update session-log.md
-3. Move completed tasks
-4. Create ADRs if needed
-5. Document problems in lessons.md
+1. Summarize session (key accomplishments, decisions, learnings)
+2. Update `.chronicle/journey/session-log.md` with detailed narrative
+3. Ensure completed tasks moved to `.chronicle/journey/completed-tasks/` (check if any missed)
+4. Create ADRs in `.chronicle/context/decisions/` if significant decisions made
+5. Update diagrams in `.chronicle/context/visuals/` if structure changed
+6. Document problems/learnings in `.chronicle/journey/lessons.md`
+7. Weekly check: If >7 days of logs, suggest compressing into `.chronicle/project-truth.md`
+8. **Skill sync check:** If chronicle-skill/ changed, sync to root (.chronicle/ and USING-CHRONICLE.md)
 
 ### Context Management
 
 **Always in context:**
 - .chronicle/project-truth.md
-- .chronicle/active-tasks.md
+- .chronicle/tasks/* (all active task files)
 - .chronicle/context/*
 - .chronicle/journey/session-log.md
 - .chronicle/journey/lessons.md
 - .chronicle/execution/*
 
 **Never in context:**
-- .chronicle/journey/completed-tasks.md (human reference only)
+- .chronicle/journey/completed-tasks/* (human reference only)
 
 <!-- ============================================================ -->
 <!-- END CHRONICLE SYSTEM PROTOCOLS                               -->
@@ -91,16 +155,20 @@ When user says "update chronicle":
 
 ### Skill Implementation Notes
 
-**Primary file:** SKILL.md (main skill definition)
+**Primary file:** chronicle-skill/SKILL.md (skill definition)
+**User guide:** chronicle-skill/USING-CHRONICLE.md
 
-**Templates needed:**
-- claude-protocols.md (the ~200 line protocol that goes in CLAUDE.md)
-- project-truth-template.md
-- active-tasks-template.md
-- session-log-template.md
-- lessons-template.md
-- adr-template.md
-- using-chronicle-template.md
+**Templates (optional future):**
+- Could extract templates from SKILL.md to chronicle-skill/templates/
+- Templates would be based on .chronicle/ real usage
+
+---
+
+## Development Workflow
+
+1. Work on chronicle-skill/SKILL.md (the product)
+2. If structure changes, sync to .chronicle/ (dogfooding)
+3. Use .chronicle/ to document development work
 
 **Key insight:** The skill should be comprehensive enough that after initialization, the project is completely self-contained. We're dogfooding this by using chronicle to document chronicle.
 

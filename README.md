@@ -1,37 +1,47 @@
-# Chronicle Skill
+# Chronicle Skill - Development Repository
 
-**The complete record of your project's journey**
+This repository contains the development of the **chronicle** Claude skill.
 
-A Claude skill that maintains project context in markdown files. Define  scope and constraints, manage active tasks, document decisions and learnings.  Everything in .chronicle/ becomes the source of truth for ongoing AI  collaboration.
-
----
-
-## What is Chronicle?
-
-Chronicle enables seamless project continuity through four core capabilities:
-
-- Define the **project** — Helps you define the shape of what your building
-- Organize **tasks** — Identify and keep track of individual tasks, to be tackled one by one
-- Document the **journey** — Capture what happened - decisions, what worked or not, etc
-- Preserve the **AI Context** — All of the above express your project and its state to an AI, across sessions
-
-From your chronicle alone, anyone - human or AI - should be able to understand your project well enough to continue building it effectively.
-
----
-
-## Quick Start
+## Repository Structure
 
 ```
-Initialize chronicle in your project directory:
+chronicle-skill-repo/
+├── chronicle-skill/          ← THE SKILL (pristine source for distribution)
+│   ├── SKILL.md              (skill definition)
+│   └── USING-CHRONICLE.md    (user guide)
+│
+├── .chronicle/               ← Development chronicle
+│   └── ...                   (documents building this skill)
+│
+├── README.md                 ← This file
+├── CLAUDE.md                 ← Project context for AI collaboration
+└── LICENSE
+```
+
+## About the Skill
+
+**Chronicle** maintains project context in markdown files for AI-assisted collaboration. Define scope and constraints, manage active tasks, document decisions and learnings. Everything in `.chronicle/` becomes the source of truth.
+
+## For Skill Users
+
+See [`chronicle-skill/SKILL.md`](chronicle-skill/SKILL.md) for the skill definition and [`chronicle-skill/USING-CHRONICLE.md`](chronicle-skill/USING-CHRONICLE.md) for usage documentation.
+
+Quick start in your project:
+```
 "Initialize chronicle"
 ```
 
-The skill will:
-1. Ask comprehensive questions about your project (15-28 min)
-2. Create `.chronicle/` directory with organized documentation
-3. Write complete operating protocols to `CLAUDE.md`
-4. Create `USING-CHRONICLE.md` user guide
-5. Exit - you're now self-contained!
+## For Skill Developers
+
+This repository uses chronicle to document its own development (meta!).
+
+- **Skill source**: [`chronicle-skill/`](chronicle-skill/) directory
+- **Development docs**: [`.chronicle/`](.chronicle/) directory
+- **Project context**: [`CLAUDE.md`](CLAUDE.md)
+
+### Development Principle
+
+The `.chronicle/` folder is treated like any other project using the skill - it documents the work of building and maintaining the skill itself. The `chronicle-skill/` folder contains the clean, distributable skill source.
 
 ---
 

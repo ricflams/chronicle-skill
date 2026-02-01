@@ -4,6 +4,38 @@
 
 ---
 
+## Development Journey: Key Learnings
+
+### What Worked
+
+**Iterative refinement through conversation**: Starting with "regenerative memory" concept and evolving through user feedback produced much better design than trying to spec everything upfront.
+
+**Concrete examples for each decision**: When discussing file structure, showing software/DIY/presentation examples immediately clarified what was abstract.
+
+**Ruthless consolidation**: Going from 18 files → 11 files → 10 files by questioning each file's necessity improved clarity dramatically.
+
+**The "Option A/B/C" pattern**: Presenting clear alternatives with tradeoffs (e.g., where to put scope.md) accelerated decision-making.
+
+### What Didn't Work
+
+**Initial over-engineering**: First version had too many subdirectories, too many files, too much structure. Simplification improved it.
+
+**Assuming users want ceremony**: Early design had elaborate initialization. Streamlining to adaptive questioning based on confidence makes it feel lighter.
+
+**Indirection via separate protocols file**: Briefly considered putting protocols in .chronicle/protocols.md and pointing from CLAUDE.md. Analysis showed this would be unreliable (Claude might forget to read it).
+
+### Evolution of Design
+
+**V1**: "Regenerative memory" with 18 files, heavy structure, protocols in separate file
+**V2**: Consolidated to 11 files, recognized active-tasks.md needs elevation
+**V3**: Further consolidated to 10 files (scope.md merged into project-truth.md)
+**V4**: Renamed to "chronicle", moved protocols into CLAUDE.md, created user guide
+**Current**: Bootstrap skill that creates self-contained chronicled projects
+
+The design converged toward: **Maximum self-containment, minimal ceremony, comprehensive documentation.**
+
+---
+
 ## Problems Encountered
 
 ### 2025-02-01 - Initial Over-Engineering

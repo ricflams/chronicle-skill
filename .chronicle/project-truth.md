@@ -85,20 +85,19 @@
 
 ### System Overview
 
-Chronicle creates a `.chronicle/` directory containing 10 core markdown files organized into 4 conceptual layers:
+Chronicle creates a `.chronicle/` directory with individual task files and organized documentation across 4 conceptual layers:
 
 **Truth Layer** (what/why):
 - `project-truth.md` - Compressed source of truth with scope, context, evolution
-- `active-tasks.md` - Current work queue (In Progress, Ready, Blocked, Backlog)
+- `.chronicle/tasks/` - Individual task files (one per task, numbered NNNN-name.md)
 
 **Context Layer** (structure/decisions):
-- `context/overview.md` - **ELIMINATED** (merged into project-truth.md)
 - `context/visuals/` - Diagrams, sketches, mood boards (format varies by project type)
 - `context/decisions/` - ADRs (Architectural Decision Records) with index
 
 **Journey Layer** (history/learnings):
 - `journey/session-log.md` - Detailed chronicle of what happened each session
-- `journey/completed-tasks.md` - Archive (excluded from AI context)
+- `journey/completed-tasks/` - Completed task files (moved from tasks/ when done, excluded from AI context)
 - `journey/lessons.md` - Problems + experiments + insights (merged from 3 files)
 
 **Execution Layer** (how we work):
@@ -155,86 +154,6 @@ Chronicle creates a `.chronicle/` directory containing 10 core markdown files or
 - Rationale: Lower friction, adapts naturally
 - Alternative: Explicit "software/DIY/presentation" choice - rejected (extra step)
 - Consequence: Smart defaults, software projects get enhanced features automatically
-
----
-
-## Development Journey: Key Learnings
-
-### What Worked
-
-**Iterative refinement through conversation**: Starting with "regenerative memory" concept and evolving through user feedback produced much better design than trying to spec everything upfront.
-
-**Concrete examples for each decision**: When discussing file structure, showing software/DIY/presentation examples immediately clarified what was abstract.
-
-**Ruthless consolidation**: Going from 18 files → 11 files → 10 files by questioning each file's necessity improved clarity dramatically.
-
-**The "Option A/B/C" pattern**: Presenting clear alternatives with tradeoffs (e.g., where to put scope.md) accelerated decision-making.
-
-### What Didn't Work
-
-**Initial over-engineering**: First version had too many subdirectories, too many files, too much structure. Simplification improved it.
-
-**Assuming users want ceremony**: Early design had elaborate initialization. Streamlining to adaptive questioning based on confidence makes it feel lighter.
-
-**Indirection via separate protocols file**: Briefly considered putting protocols in .chronicle/protocols.md and pointing from CLAUDE.md. Analysis showed this would be unreliable (Claude might forget to read it).
-
-### Evolution of Design
-
-**V1**: "Regenerative memory" with 18 files, heavy structure, protocols in separate file
-**V2**: Consolidated to 11 files, recognized active-tasks.md needs elevation
-**V3**: Further consolidated to 10 files (scope.md merged into project-truth.md)
-**V4**: Renamed to "chronicle", moved protocols into CLAUDE.md, created user guide
-**Current**: Bootstrap skill that creates self-contained chronicled projects
-
-The design converged toward: **Maximum self-containment, minimal ceremony, comprehensive documentation.**
-
----
-
-## Implementation Guide
-
-### Core Patterns Used
-
-**Jobs-to-be-Done in questioning**: "What job is this project hired to do?" elicits better context than "what are your requirements?"
-
-**Progress bars for depth visualization**: Visual feedback on question completeness helps users decide where to dig deeper.
-
-**Adaptive questioning**: Auto-detect software projects, skip irrelevant questions (team questions for solo projects), add domain-specific depth.
-
-**Bootstrap-and-exit**: Skill transfers knowledge to CLAUDE.md and becomes unnecessary.
-
-**HTML comment regions**: Clear boundaries in CLAUDE.md for skill-generated vs user-customized content.
-
-**Flat archive with timestamp**: completed-tasks.md uses simple format (task name, date, duration) without subdirectories.
-
-### Parts/Components
-
-#### Chronicle Skill (bootstrap mechanism)
-**Purpose:** One-time initialization that creates self-contained chronicled project
-**Key Elements:** 
-- Phase 1-3 adaptive questioning
-- File structure generation
-- CLAUDE.md protocol writing
-- User guide creation
-**Dependencies:** None (self-contained skill)
-**Validation:** Project works after skill removal
-
-#### .chronicle/ Directory Structure
-**Purpose:** Organized documentation following truth/context/journey/execution layers
-**Key Elements:** 10 core markdown files across 4 subdirectories
-**Dependencies:** None
-**Validation:** Human-readable, AI-navigable, searchable
-
-#### CLAUDE.md Protocols
-**Purpose:** Complete operating instructions enabling Claude to maintain chronicle
-**Key Elements:** 200+ lines covering workflows, rules, formats
-**Dependencies:** CLAUDE.md auto-loading in Claude interface
-**Validation:** Claude follows protocols without skill present
-
-#### USING-CHRONICLE.md User Guide
-**Purpose:** Human-facing documentation of how to work with chronicle
-**Key Elements:** Purpose explanation, workflows, examples, cheat sheet
-**Dependencies:** None
-**Validation:** New users understand system in <10 minutes
 
 ---
 

@@ -91,14 +91,15 @@ Create directory structure:
 ```
 .chronicle/
 ├── project-truth.md           # Populated from Q&A
-├── active-tasks.md            # Empty template
+├── tasks/                     # Active tasks (one file per task)
+│   └── (empty initially)
 ├── context/
 │   ├── visuals/
 │   └── decisions/
 │       └── index.md
 ├── journey/
 │   ├── session-log.md
-│   ├── completed-tasks.md
+│   ├── completed-tasks/       # Completed task files moved here
 │   └── lessons.md
 └── execution/
     ├── parts-manifest.md

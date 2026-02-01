@@ -10,11 +10,9 @@
   - Established three core purposes: task organization, journey documentation, AI context preservation
 
 - **Defined adaptive 3-phase initialization**
-  - Phase 1: 10 foundation questions (3-5min)
-  - Phase 2: Depth visualization with progress bars (2-3min)
-  - Phase 3: Targeted deep dives based on user selection (10-20min)
-  - Phase 4: Summary & validation before file creation (2-3min)
-  - Total: 15-28 minutes adaptive to project complexity
+  - 4 phases: Foundation questions, depth visualization, targeted deep dives, summary/validation
+  - Total time: 15-28 minutes (adaptive to project complexity)
+  - See `.chronicle/execution/key-facts.md` for detailed timings
 
 - **Consolidated file structure through iteration**
   - Round 1: Eliminated context/overview.md (merged into project-truth.md)
@@ -48,14 +46,15 @@
 
 **Decisions:**
 
-- **DEC-001: Bootstrap-and-exit pattern** - Skill transfers knowledge to CLAUDE.md and becomes unnecessary (vs staying active)
-- **DEC-002: Protocols in CLAUDE.md** - More reliable than separate file (vs .chronicle/protocols.md with indirection)
-- **DEC-003: 10-file consolidated structure** - Balance between organization and simplicity (vs 18-file initial design)
-- **DEC-004: "chronicle" name** - Warm, evocative, timeless (vs "regenerative-memory" which felt technical/cold)
-- **DEC-005: .chronicle/ directory** - Branded and semantic (vs generic .ai/)
-- **DEC-006: completed-tasks.md excluded from AI context** - Human progress tracking only (vs including in AI context)
-- **DEC-007: active-tasks.md at top level** - Different time orientation warrants elevation (vs keeping in journey/)
-- **DEC-008: Universal with auto-detection** - Adapts to software/DIY/creative automatically (vs explicit type selection)
+Made 8 architectural decisions during this session. See `.chronicle/context/decisions/` for full ADRs:
+- [001-bootstrap-and-exit.md](../.chronicle/context/decisions/001-bootstrap-and-exit.md) - Skill transfers knowledge and exits
+- [002-protocols-in-claude-md.md](../.chronicle/context/decisions/002-protocols-in-claude-md.md) - Protocols in CLAUDE.md for reliability
+- [003-10-file-structure.md](../.chronicle/context/decisions/003-10-file-structure.md) - Consolidated from 18 to 10 files
+- [004-chronicle-naming.md](../.chronicle/context/decisions/004-chronicle-naming.md) - "Chronicle" over "regenerative-memory"
+- [005-chronicle-directory.md](../.chronicle/context/decisions/005-chronicle-directory.md) - `.chronicle/` directory name
+- [006-completed-tasks-exclusion.md](../.chronicle/context/decisions/006-completed-tasks-exclusion.md) - Exclude from AI context
+- [007-active-tasks-elevation.md](../.chronicle/context/decisions/007-active-tasks-elevation.md) - Active tasks at top level
+- [008-universal-auto-detect.md](../.chronicle/context/decisions/008-universal-auto-detect.md) - Auto-detect project type
 
 **Learnings:**
 
@@ -87,3 +86,41 @@
 - Build example chronicles for different project types
 - Test adaptive questioning with real projects
 - Package and publish skill
+---
+
+## Session 2025-02-01 (Continued) - Organizational Cleanup (~1.5 hours)
+
+**Accomplished:**
+
+- **Fixed chronicle organizational violations** - Made chronicle practice its own principles
+  - Created 7 missing ADR files (001, 003-008) using content from project-truth.md
+  - Created `.chronicle/context/visuals/` directory with README placeholder
+  - Renamed `component-manifest.md` → `parts-manifest.md` per documentation
+  - Removed duplicated content from session-log.md (initialization specs, decision re-listings)
+  - Moved session end workflow steps from key-facts.md to CLAUDE.md protocols
+  - Created `USING-CHRONICLE.md` at project root (comprehensive user guide, ~1400 words)
+  - Updated session-log to reference ADR files via links instead of duplicating content
+
+- **Fixed README.md markdown formatting** - Four-point list now displays correctly on GitHub
+  - Added blank lines between list items so they render as separate lines
+  - Bolded key terms for better scanability
+
+**Learnings:**
+
+- **Dogfooding reveals organizational debt** - Using chronicle to document chronicle exposed violations of its own principles (content in wrong layers, duplication, missing files)
+
+- **GitHub markdown quirks** - List items without blank lines between them don't render on separate lines in GitHub's markdown renderer
+
+- **Layer violations are subtle** - Easy to put implementation details in Journey Layer or workflows in Facts file without realizing the boundary crossing
+
+**Problems Encountered:**
+
+- **Audit found 11 violations** - Chronicle's own documentation wasn't following the 4-layer structure
+  - Solution: Systematic cleanup - created missing files, moved content to correct layers, eliminated duplication
+  - Learned: Regular audits needed even for "meta" projects
+
+**Next Steps:**
+
+- Continue with SKILL.md implementation
+- Create template files for all chronicle file types
+- Build example projects demonstrating chronicle in action
