@@ -1,7 +1,17 @@
+---
+type: project-truth
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+---
+
 # [Project Name]: Project Truth
 
 *Last Updated: [DATE]*
 *Status: [Active Development / Maintenance / On Hold]*
+
+---
+
+**Token Budget:** Target 2-4 pages (1K-2K tokens), max 6 pages. If exceeding, split detailed specs into separate docs in context/visuals/ or execution/.
 
 ---
 

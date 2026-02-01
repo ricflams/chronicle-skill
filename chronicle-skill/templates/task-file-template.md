@@ -1,3 +1,9 @@
+---
+type: task
+created: YYYY-MM-DD
+status: active
+---
+
 # Task: [Task Name]
 
 **Created:** YYYY-MM-DD by [Creator Name]

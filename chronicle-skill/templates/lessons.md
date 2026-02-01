@@ -1,3 +1,8 @@
+---
+type: lessons
+created: YYYY-MM-DD
+---
+
 # Lessons Learned
 
 *Problems encountered, experiments tried, and insights gained*

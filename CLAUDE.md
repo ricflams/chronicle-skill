@@ -68,9 +68,9 @@ Check `.chronicle/tasks/` folder for what to work on next. Use "list tasks" comm
 ### Key Decisions
 
 See `.chronicle/context/decisions/` for architectural decisions, especially:
-- DEC-001: Bootstrap-and-exit pattern
-- DEC-002: Protocols in CLAUDE.md (this is why these protocols are here)
-- DEC-010: Individual task files (.chronicle/tasks/ folder, not active-tasks.md)
+- DEC-0001: Bootstrap-and-exit pattern
+- DEC-0002: Protocols in CLAUDE.md (this is why these protocols are here)
+- DEC-0010: Individual task files (.chronicle/tasks/ folder, not active-tasks.md)
 
 ### Recent Progress
 

@@ -1,3 +1,9 @@
+---
+type: project-truth
+created: 2026-02-01
+updated: 2026-02-01
+---
+
 # Chronicle Skill: Regenerative Source of Truth
 
 *Last Updated: 2025-02-01*

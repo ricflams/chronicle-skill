@@ -1,66 +1,57 @@
-# ADR-[NUMBER]: [Decision Title]
+---
+type: adr
+date: YYYY-MM-DD
+status: proposed
+---
+
+# ADR-[NNNN]: [Decision Title]
 
 **Date:** YYYY-MM-DD  
-**Status:** [Proposed / Accepted / Deprecated / Superseded]  
-**Context:** [Area this decision affects]  
-**Related:** [Links to related ADRs, if any]
+**Status:** [Proposed | Accepted | Deprecated | Superseded]  
+**Context:** [Area this decision affects]
 
 ---
 
-## Context and Problem
+## Context
 
-[Describe the situation that requires a decision. What forces are at play? What constraints exist? What is the core problem or question being addressed?]
+What is the issue that we're seeing that is motivating this decision or change? What forces are at play? What constraints exist?
+
+[2-3 paragraphs describing the situation and problem]
 
 ## Decision
 
-[State the decision clearly and concisely. This should be a complete sentence describing what was chosen.]
+We will [clear statement of what was decided].
 
-## Alternatives Considered
+**Why this approach:**
+- Key reason 1
+- Key reason 2
+- Key reason 3
 
-**Option A: [Alternative name]**
-- Pro: [Benefit]
-- Pro: [Benefit]
-- **Con: [Drawback]**
-- **Why rejected:** [Reasoning]
-
-**Option B: [Alternative name]**
-- Pro: [Benefit]
-- **Con: [Drawback]**
-- **Con: [Drawback]**
-- **Why rejected:** [Reasoning]
-
-**Option C: [Alternative name]** (if applicable)
-- Pro: [Benefit]
-- **Con: [Drawback]**
-- **Why rejected:** [Reasoning]
+**Alternatives considered:**
+- **Option A:** [Brief description] - Rejected because [reason]
+- **Option B:** [Brief description] - Rejected because [reason]
 
 ## Consequences
 
-### Positive
-- ✅ [Benefit from this decision]
-- ✅ [Another benefit]
-- ✅ [Another benefit]
+**What becomes easier:**
+- Positive consequence 1
+- Positive consequence 2
 
-### Negative
-- ❌ [Drawback or trade-off]
-- ❌ [Another drawback]
+**What becomes harder:**
+- Negative consequence 1
+- Tradeoff we're accepting
 
-### Neutral
-- [Consequence that's neither good nor bad, just a fact]
-- [Another neutral consequence]
-
-## Implementation
-
-[How will this decision be implemented? What concrete steps are needed? Are there any specific patterns or approaches to follow?]
-
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-## Notes
-
-[Any additional context, references, or information that doesn't fit above. Include links to discussions, relevant resources, or examples.]
+**Implementation notes:**
+- Concrete step or consideration for implementation
+- Technical detail if relevant
 
 ---
 
-*Remember: ADRs capture **why** decisions were made, not just **what** was decided. The alternatives and consequences sections are critical for future understanding.*
+## Related Decisions
+
+- See ADR-[NNNN]: [Related decision]
+- Supersedes ADR-[NNNN]: [Old decision] (if applicable)
+
+---
+
+**Note:** This is the simplified ADR format based on Michael Nygard's original pattern. For lighter decisions, use Y-statements in `context/principles.md` instead.

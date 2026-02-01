@@ -12,8 +12,36 @@ Chronicle creates a self-contained documentation system that enables:
 - **Task Organization** - Never ask "what's next?"
 - **Journey Documentation** - Capture why, not just what  
 - **AI Context Preservation** - Enable seamless collaboration across sessions
+- **Token Efficiency** - Lightweight, scannable formats optimized for LLM context
 
 From the chronicle alone, someone - human or AI - should be able to understand your project well enough to continue building it effectively.
+
+## Design Foundations
+
+Chronicle builds on established methodologies:
+
+**Architecture Decision Records (Michael Nygard, 2011)**
+- Original 3-section ADR format: Context, Decision, Consequences
+- Chronicle adds two-tier system: quick Y-statements + full ADRs for major decisions
+
+**PARA Method (Tiago Forte)**
+- Purpose, Areas, Resources, Archives organization model
+- Chronicle's 4-layer structure aligns: Purpose (project-truth + tasks), Resources (context), Archives (journey), System (execution)
+
+**README-Driven Development (Tom Preston-Werner)**
+- Start with the story before implementation
+- Chronicle's project-truth.md serves this role
+
+**Just-Enough Architecture (Simon Brown)**
+- Document what matters, skip what doesn't
+- Chronicle balances comprehensive context with token efficiency
+
+**Conventional Commits**
+- Structured commit format for semantic meaning
+- Chronicle applies to session logs: `feat(scope): description`
+
+**Token Efficiency as Design Goal:**
+Chronicle is optimized for LLM collaboration with two-tier context loading, compressed formats, and explicit token budgets (typical project ~10K tokens vs traditional documentation ~40K+).
 
 ## When to Use
 
@@ -87,26 +115,34 @@ Show comprehensive summary, wait for user confirmation before creating files.
 
 ### Phase 2: Bootstrap Structure
 
-Create directory structure:
+Create directory structure following PARA-inspired model:
 ```
 .chronicle/
-├── project-truth.md           # Populated from Q&A
-├── tasks/                     # Active tasks (one file per task)
+├── project-truth.md           # PURPOSE: Why we exist (populated from Q&A)
+├── tasks/                     # PURPOSE: Active work (one file per task)
 │   └── (empty initially)
-├── context/
+├── context/                   # RESOURCES: Reference material
 │   ├── visuals/
-│   └── decisions/
-│       └── index.md
-├── journey/
-│   ├── session-log.md
+│   ├── decisions/
+│   │   └── (ADRs when needed)
+│   └── principles.md          # Quick decisions (Y-statements)
+├── journey/                   # ARCHIVE: What happened
+│   ├── session-log.md         # Last 2-3 sessions only
+│   ├── session-archive.md     # Older sessions (excluded from AI context)
 │   ├── completed-tasks/       # Completed task files moved here
-│   └── lessons.md
-└── execution/
-    ├── parts-manifest.md
-    ├── key-patterns.md
-    ├── key-facts.md
-    └── validation-strategy.md
+│   └── lessons.md             # Accumulated wisdom
+└── execution/                 # SYSTEM: How we work
+    ├── parts-manifest.md      # Components/materials
+    ├── key-patterns.md        # Recurring techniques
+    ├── key-facts.md           # Configuration & references
+    └── validation-strategy.md # Testing criteria
 ```
+
+**Layer model:**
+- **Purpose Layer:** project-truth.md + tasks/ (what we're building and why)
+- **Resources Layer:** context/* (reference material for decisions and architecture)
+- **Archive Layer:** journey/* (project history and learnings)
+- **System Layer:** execution/* (operational knowledge)
 
 **Auto-detection for software projects:**
 If code files exist (*.cs, *.js, package.json, *.csproj, src/):
@@ -128,7 +164,7 @@ Append complete chronicle protocols to CLAUDE.md:
 
 ## Chronicle System
 
-[Complete 200-line protocol - see templates/claude-protocols.md]
+[Complete 200-line protocol - see templates/claude.md]
 
 <!-- ============================================================ -->
 <!-- END CHRONICLE SYSTEM PROTOCOLS                               -->
@@ -196,11 +232,12 @@ Chronicle works seamlessly with planning mode for task creation:
 
 **Planning mode workflow:**
 1. User and Claude collaborate on task plan in planning mode (no file edits)
-2. User manually switches to agent mode when plan is ready
-3. User signals task creation: "Add the task" / "Create the task" / "Task accepted"
-4. Chronicle creates task file in `.chronicle/tasks/NNNN-task-name.md`
-5. Chronicle asks: "Should I start working on this task now?"
-6. User responds:
+2. When plan is finalized, Claude says: **"Ready to implement? Switch to agent mode and say 'add the task'"**
+3. User manually switches to agent mode
+4. User signals task creation: "Add the task" / "Create the task" / "Task accepted", or similar to that effect
+5. Chronicle creates task file in `.chronicle/tasks/NNNN-task-name.md`
+6. Chronicle asks: "Should I start working on this task now?"
+7. User responds:
    - "Yes" / "Start" → Chronicle begins implementation
    - "No" / "Just queue it" → Task queued for later
 
@@ -284,17 +321,35 @@ Chronicle: [Walks through 8 steps:]
 
 ## Context Management
 
-**Always in AI context:**
+**Context loading (two-tier approach):**
+
+**Essential context** (always load first - ~5K tokens):
 - .chronicle/project-truth.md
 - .chronicle/tasks/* (all active task files)
-- .chronicle/context/*
-- .chronicle/journey/session-log.md
+- .chronicle/context/principles.md
 - .chronicle/journey/lessons.md
-- .chronicle/execution/*
+- .chronicle/execution/key-facts.md
 
-**Never in AI context:**
+**On-demand context** (load when relevant - ~15K additional tokens):
+- .chronicle/journey/session-log.md (last 2-3 sessions)
+- .chronicle/context/decisions/* (full ADRs when deep dive needed)
+- .chronicle/context/visuals/* (diagrams when architecture questions arise)
+- .chronicle/execution/parts-manifest.md (component details)
+- .chronicle/execution/key-patterns.md (technique reference)
+- .chronicle/execution/validation-strategy.md (testing criteria)
+
+**Excluded from AI context:**
 - .chronicle/journey/completed-tasks/* (human reference only)
+- .chronicle/journey/session-archive.md (archived sessions)
+- .chronicle/context/decisions-archive/* (superseded decisions)
 - USING-CHRONICLE.md (user guide only)
+
+**Token budget guidance:**
+- project-truth.md: Target 2-4 pages (1K-2K tokens), max 6 pages
+- principles.md: Terse Y-statements, ~500-1K tokens
+- session-log.md: 300 lines max (~2K tokens), compress beyond that
+- Individual task files: Varies, aim for clarity over brevity
+- Full ADRs: Use sparingly, only for major architectural decisions
 
 ## Optional: Update Protocols
 
@@ -307,13 +362,32 @@ Chronicle: [Updates CLAUDE.md with latest version while preserving customization
 ## File Templates
 
 See templates/ directory for:
-- claude-protocols.md - Full CLAUDE.md protocol section
-- project-truth.md - Populated from Q&A
-- task-file-template.md - Individual task file format (NNNN-task-name.md)
-- session-log.md - Session chronicle template
-- lessons.md - Problems/learnings template
-- using-chronicle.md - User guide
-- adr-template.md - Decision record format
+- **claude.md** - Full CLAUDE.md protocol section with two-tier context loading
+- **project-truth.md** - Populated from Q&A, token budget guidance included
+- **principles.md** - Quick decisions using Y-statement format
+- **task-file-template.md** - Individual task file format (NNNN-task-name.md) with frontmatter
+- **session-log.md** - Conventional commit format, 300-line compression trigger
+- **lessons.md** - Problems/learnings with frontmatter
+- **using-chronicle.md** - User guide
+- **adr-template.md** - Simplified 3-section format (Context, Decision, Consequences)
+
+## Decision Documentation Formats
+
+**Quick decisions (most common):**
+Use Y-statements in `context/principles.md`:
+```
+In the context of [situation], facing [concern], we decided for [option], 
+to achieve [benefit], accepting [tradeoff].
+```
+Optional detail bullets below when elaboration needed.
+
+**Major architectural decisions:**
+Use full ADR in `context/decisions/NNNN-name.md`:
+- Section 1: Context (problem and constraints)
+- Section 2: Decision (what was chosen, why, alternatives rejected)
+- Section 3: Consequences (what becomes easier/harder, implementation notes)
+
+Based on Michael Nygard's original ADR format, simplified from verbose enterprise templates.
 
 ## Key Principles
 

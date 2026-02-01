@@ -1,59 +1,62 @@
+---
+type: session-log
+created: YYYY-MM-DD
+---
+
 # Session Log
 
-*Chronicle of what happened each development session*
+*Chronicle of what happened each development session. Keep last 2-3 sessions (max 300 lines). Archive older entries to session-archive.md and extract major learnings to lessons.md.*
 
 ---
 
 ## [DATE] - Session [N]
 
-**Duration:** [X hours]  
-**Focus:** [Main work area or task]
+**Changes made** (using conventional commit format):
 
-### Accomplishments
+- **feat(scope):** Description of new feature added
+- **fix(scope):** Description of bug fix
+- **docs(scope):** Documentation update
+- **refactor(scope):** Code restructuring without behavior change
+- **chore(scope):** Maintenance task
 
-- [What was completed]
-- [What was built/implemented]
-- [Progress made]
+**Key decisions:**
+- Link to decision in principles.md or ADR-NNNN if major
 
-### Decisions Made
+**Blockers encountered:**
+- Issue and resolution (or current status)
 
-- [Quick decisions - link to ADRs for significant ones]
-- See DEC-XXX for [decision topic]
-
-### Problems Encountered
-
-- [Issues faced]
-- [Blockers hit]
-- See lessons.md for detailed problem analysis
-
-### Next Session
-
-- [ ] [Top priority for next time]
-- [ ] [Follow-up tasks]
+**Next session:**
+- What to tackle next
 
 ---
 
-## [DATE] - Session [N-1]
+## Session Archive Trigger
 
-**Duration:** [X hours]  
-**Focus:** [Main work area or task]
-
-### Accomplishments
-
-- [Completed work]
-
-### Decisions Made
-
-- [Decisions]
-
-### Problems Encountered
-
-- [Problems]
-
-### Next Session
-
-- [ ] [Next priorities]
+When this file exceeds 300 lines:
+1. Move oldest sessions to `journey/session-archive.md` (excluded from AI context)
+2. Extract major learnings to `lessons.md`
+3. Keep only last 2-3 sessions in this file
 
 ---
 
-*Sessions listed in reverse chronological order (newest first). Compress into project-truth.md after 7+ days.*
+## Example Session Entry
+
+## 2026-02-01 - Session 1
+
+**Changes made:**
+
+- **feat(auth):** Implemented OAuth 2.0 integration with Google provider
+- **feat(api):** Added user profile endpoint
+- **fix(db):** Resolved connection pool timeout under load
+- **docs(readme):** Updated setup instructions for new OAuth flow
+- **refactor(utils):** Consolidated validation functions into single module
+
+**Key decisions:**
+- Chose OAuth over custom auth (see principles.md)
+
+**Blockers encountered:**
+- OAuth redirect URI configuration unclear - resolved by reading provider docs
+
+**Next session:**
+- Implement refresh token rotation
+- Add rate limiting to API

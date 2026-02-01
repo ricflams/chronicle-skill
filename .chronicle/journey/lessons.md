@@ -1,3 +1,8 @@
+---
+type: lessons
+created: 2026-02-01
+---
+
 # Lessons Learned
 
 *This file captures what went wrong, what we tried, and what we learned*
