@@ -2,7 +2,7 @@
 
 **The complete record of your project's journey**
 
-A Claude skill that creates comprehensive, self-contained documentation systems for long-running AI-assisted projects.
+A Claude skill that maintains project context in markdown files. Define  scope and constraints, manage active tasks, document decisions and learnings.  Everything in .chronicle/ becomes the source of truth for ongoing AI  collaboration.
 
 ---
 
@@ -10,9 +10,9 @@ A Claude skill that creates comprehensive, self-contained documentation systems 
 
 Chronicle enables seamless project continuity through three core capabilities:
 
-**📋 Task Organization** — Never ask "what's next?"  
-**🗺️ Journey Documentation** — Capture why, not just what  
-**🤖 AI Context Preservation** — Enable seamless collaboration across sessions
+**� Task Organization** — Never ask "what's next?"  
+**� Journey Documentation** — Capture why, not just what  
+**� AI Context Preservation** — Enable seamless collaboration across sessions
 
 From your chronicle alone, anyone - human or AI - should be able to understand your project well enough to continue building it effectively.
 
@@ -159,13 +159,15 @@ Chronicle is currently in development. Contributions welcome after v1.0 release.
 
 ## License
 
-MIT (planned)
+MIT
 
 ---
 
 ## Author
 
-Richard
+Richard Flamsholt
+
+richard@flamsholt.dk
 
 ---
 
@@ -173,7 +175,6 @@ Richard
 
 Inspired by:
 - Nate B Jones' domain memory pattern video
-- SpillwaveSolutions' project-memory skill
 - The concept of regenerative documentation
 - Real frustration with losing context in long-running AI projects
 
