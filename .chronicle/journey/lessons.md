@@ -35,9 +35,18 @@ created: 2026-02-01
 **V2**: Consolidated to 11 files, recognized active-tasks.md needs elevation
 **V3**: Further consolidated to 10 files (scope.md merged into project-truth.md)
 **V4**: Renamed to "chronicle", moved protocols into CLAUDE.md, created user guide
-**Current**: Bootstrap skill that creates self-contained chronicled projects
+**V5**: Token efficiency redesign - PARA naming, two-tier decisions, frontmatter, conventional commits
 
-The design converged toward: **Maximum self-containment, minimal ceremony, comprehensive documentation.**
+The design converged toward: **Maximum self-containment, minimal ceremony, comprehensive documentation, token efficiency.**
+
+**Key insight from V5 redesign**: Research into established methodologies revealed Chronicle had organically discovered many best practices but over-engineered others (9-section ADRs vs Nygard's original 3-section format). Grounding in prior art strengthened credibility while simplifying implementation.
+
+**Major learnings from token efficiency work:**
+- **Research pays off**: Investigating ADR origins, PARA methodology, conventional commits provided both validation and simplification paths
+- **Over-engineering is subtle**: Chronicle's 9-section ADR template seemed thorough until compared to Nygard's deliberately minimal original (3 sections)
+- **Two-tier patterns work**: Essential vs on-demand context loading, quick vs full decision formats - tiering reduces friction
+- **Frontmatter enables scanning**: YAML metadata at file top allows AI to quickly assess relevance without reading full content
+- **Token budgets make tradeoffs explicit**: Adding "target 2-4 pages" to project-truth.md template forces conscious decisions about detail level
 
 ---
 
