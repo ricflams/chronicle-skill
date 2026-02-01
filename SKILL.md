@@ -232,7 +232,7 @@ Chronicle works seamlessly with planning mode for task creation:
 
 **Planning mode workflow:**
 1. User and Claude collaborate on task plan in planning mode (no file edits)
-2. When plan is finalized, Claude says: **"Ready to implement? Switch to agent mode and say 'add the task'"**
+2. **When presenting ANY plan or implementation guidance**, Claude says: **"Ready to implement? Switch to agent mode and say 'add the task'"**
 3. User manually switches to agent mode
 4. User signals task creation: "Add the task" / "Create the task" / "Task accepted", or similar to that effect
 5. Chronicle creates task file in `.chronicle/tasks/NNNN-task-name.md`
@@ -240,6 +240,18 @@ Chronicle works seamlessly with planning mode for task creation:
 7. User responds:
    - "Yes" / "Start" → Chronicle begins implementation
    - "No" / "Just queue it" → Task queued for later
+
+**When to use the handoff prompt:**
+- ✅ Multi-step implementation plans ("Here's how to build feature X")
+- ✅ Documentation updates ("Add this installation section to README")
+- ✅ Code changes ("Add these 3 functions to the module")
+- ✅ Configuration guidance ("Update these settings in config.json")
+- ✅ File restructuring ("Move these files to new directory")
+- ❌ Pure explanations ("Here's how the system works")
+- ❌ Diagnosis only ("The error means your API key is invalid")
+- ❌ Questions/clarifications ("Do you want approach A or B?")
+
+**Rule of thumb:** If there's something to implement, use the handoff prompt.
 
 **Starting queued tasks:**
 ```

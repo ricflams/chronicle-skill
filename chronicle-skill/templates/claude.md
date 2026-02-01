@@ -16,13 +16,18 @@ Planning mode creates plans but does NOT implement or edit files.
 
 **Workflow:**
 1. User and Claude collaborate on task plan in planning mode
-2. When plan is finalized, Claude says: **"Ready to implement? Switch to agent mode and say 'add the task'"**
+2. **When presenting ANY plan or implementation guidance**, Claude says: **"Ready to implement? Switch to agent mode and say 'add the task'"**
 3. **User manually switches to agent mode** (Claude cannot do this)
 4. User signals task creation with phrases like:
    - "Add the task"
    - "Create the task"
    - "Task accepted"
    - Or any clear indication to proceed
+
+**When to use the handoff prompt:**
+- ✅ Multi-step plans, documentation updates, code changes, config edits, file operations
+- ❌ Pure explanations, diagnosis only, questions/clarifications
+- **Rule:** If there's something to implement, use the handoff prompt
 
 **When user says "add the task" (in agent mode):**
 1. Create task file in `.chronicle/tasks/NNNN-task-name.md` based on the plan
