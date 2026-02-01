@@ -10,10 +10,10 @@ A Claude skill that maintains project context in markdown files. Define  scope a
 
 Chronicle enables seamless project continuity through four core capabilities:
 
-** Setup the context ** — Helps you define the shape of what your building
-** Task Organization** — Identify and keep track of individual tasks, to be tackled one by one
-** Journey Documentation** — Capture what happened - decisions, what worked or not, etc
-** AI Context Preservation** — All of the above express your project and its state to an AI, across sessions
+Define the **project** — Helps you define the shape of what your building
+Organize **tasks** — Identify and keep track of individual tasks, to be tackled one by one
+Document the **journey** — Capture what happened - decisions, what worked or not, etc
+Preserve the **AI Context** — All of the above express your project and its state to an AI, across sessions
 
 From your chronicle alone, anyone - human or AI - should be able to understand your project well enough to continue building it effectively.
 
@@ -63,9 +63,9 @@ Plus:
 
 ## Philosophy
 
-> "Code is what the computer executes. Documentation is what the team executes. In AI-assisted development, documentation becomes a primary artifact."
+In AI-assisted development, the AI-context becomes a primary artifact.
 
-Chronicle treats the _journey of understanding_ as equally valuable as the produced artifacts. Code can be regenerated; understanding cannot.
+Chronicle treats the _curated context_ and the _journey of understanding_ as just as valuable as the produced artifacts. Code can be regenerated; understanding cannot.
 
 **From your chronicle alone, someone should be able to recreate functionally equivalent work.**
 
@@ -134,21 +134,9 @@ See `.chronicle/` directory for:
 
 ---
 
-## Examples
-
-See `examples/` directory for fully populated chronicles:
-- `software-project/` - HTTP client library
-- `diy-project/` - Garden shed build
-- `presentation-project/` - Investor pitch
-
----
-
 ## Documentation
 
 - **USING-CHRONICLE.md** - User guide (created in your project)
-- **docs/philosophy.md** - Deep dive into regenerative documentation
-- **docs/comparison.md** - Chronicle vs alternatives
-- **docs/best-practices.md** - Tips for effective use
 
 ---
 
@@ -167,7 +155,6 @@ MIT
 ## Author
 
 Richard Flamsholt
-
 richard@flamsholt.dk
 
 ---
