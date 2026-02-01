@@ -8,11 +8,12 @@ A Claude skill that maintains project context in markdown files. Define  scope a
 
 ## What is Chronicle?
 
-Chronicle enables seamless project continuity through three core capabilities:
+Chronicle enables seamless project continuity through four core capabilities:
 
-**� Task Organization** — Never ask "what's next?"  
-**� Journey Documentation** — Capture why, not just what  
-**� AI Context Preservation** — Enable seamless collaboration across sessions
+** Setup the context ** — Helps you define the shape of what your building
+** Task Organization** — Identify and keep track of individual tasks, to be tackled one by one
+** Journey Documentation** — Capture what happened - decisions, what worked or not, etc
+** AI Context Preservation** — All of the above express your project and its state to an AI, across sessions
 
 From your chronicle alone, anyone - human or AI - should be able to understand your project well enough to continue building it effectively.
 
@@ -62,9 +63,9 @@ Plus:
 
 ## Philosophy
 
-> "Code is what the computer executes. Documentation is what the team executes. In AI-assisted development, documentation becomes the primary artifact."
+> "Code is what the computer executes. Documentation is what the team executes. In AI-assisted development, documentation becomes a primary artifact."
 
-Chronicle treats the journey of understanding as more valuable than the artifact. Code can be regenerated; understanding cannot.
+Chronicle treats the _journey of understanding_ as equally valuable as the produced artifacts. Code can be regenerated; understanding cannot.
 
 **From your chronicle alone, someone should be able to recreate functionally equivalent work.**
 
@@ -73,7 +74,7 @@ Chronicle treats the journey of understanding as more valuable than the artifact
 ## Use Cases
 
 **Software Development**
-- Multi-month projects with AI assistance
+- Any projects that's built with AI assistance
 - Experiments and prototypes you might revisit
 - Learning new frameworks or languages
 
