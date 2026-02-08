@@ -1,47 +1,37 @@
-# Chronicle Skill - Development Repository
+# Chronicle
 
-This repository contains the development of the **chronicle** Claude skill.
 
-## Repository Structure
+Chronicle captures the **context gems** — truths, decisions, lessons — from each Claude session and tucks them into **markdown files** right in your repo.
 
-```
-chronicle-skill-repo/
-├── chronicle-skill/          ← THE SKILL (pristine source for distribution)
-│   ├── SKILL.md              (skill definition)
-│   └── USING-CHRONICLE.md    (user guide)
-│
-├── .chronicle/               ← Development chronicle
-│   └── ...                   (documents building this skill)
-│
-├── README.md                 ← This file
-├── CLAUDE.md                 ← Project context for AI collaboration
-└── LICENSE
-```
+This means every new conversation starts with everything you've already figured out. Claude's built-in memory eventually scrolls out of the context window while Chronicle's markdown-captured context sticks around.
 
-## About the Skill
+What's in it for you? First, **context that keeps building** — Claude gets genuinely smarter about your project over time. Second, a living record of your project's journey stored in your repo: the truths you've nailed down, the decisions you've made, the lessons you've learned. It grows organically as you work.
 
-**Chronicle** maintains project context in markdown files for AI-assisted collaboration. Define scope and constraints, manage active tasks, document decisions and learnings. Everything in `.chronicle/` becomes the source of truth.
+And don't worry about **bloat** — Chronicle is smart about tokens. It only passes in the most relevant parts of your journey, archiving the rest as time goes by. Your context stays lean even as your project history grows.
 
-## For Skill Users
+Think of Chronicle as **Claude's sidekick for context** — it keeps tabs on the important project-stuff and feeds it back into your conversations, making Claude smarter about your project with every session. All just stored as markdown-files in a `.chronicle` folder.
 
-See [`chronicle-skill/SKILL.md`](chronicle-skill/SKILL.md) for the skill definition and [`chronicle-skill/USING-CHRONICLE.md`](chronicle-skill/USING-CHRONICLE.md) for usage documentation.
+---
 
-Quick start in your project:
-```
-"Initialize chronicle"
+## Quick Start
+
+**Install:**
+```bash
+claude skill add https://github.com/ricflams/chronicle-skill
 ```
 
-## For Skill Developers
+**Use:**
+```bash
+cd ~/my-project
+claude
+```
+```
+You: "use Chronicle"
+```
 
-This repository uses chronicle to document its own development (meta!).
+That's it. Chronicle initializes, then runs automatically — prompting you when decisions, lessons, or sessions are worth capturing.
 
-- **Skill source**: [`chronicle-skill/`](chronicle-skill/) directory
-- **Development docs**: [`.chronicle/`](.chronicle/) directory
-- **Project context**: [`CLAUDE.md`](CLAUDE.md)
-
-### Development Principle
-
-The `.chronicle/` folder is treated like any other project using the skill - it documents the work of building and maintaining the skill itself. The `chronicle-skill/` folder contains the clean, distributable skill source.
+You can invoke Chronicle in fresh projects or in existing projects. Either works just fine.
 
 ---
 
@@ -49,133 +39,130 @@ The `.chronicle/` folder is treated like any other project using the skill - it 
 
 ```
 .chronicle/
-├── project-truth.md       # Compressed source of truth
-├── active-tasks.md        # Your work queue
-├── context/               # Architecture & decisions
-│   ├── visuals/
-│   └── decisions/
-├── journey/               # Session logs & learnings
-│   ├── session-log.md
-│   ├── completed-tasks.md
-│   └── lessons.md
-└── execution/             # How you work
-    ├── parts-manifest.md
-    ├── key-patterns.md
-    ├── key-facts.md
-    └── validation-strategy.md
+├── truth.md              # Project DNA (purpose, scope, constraints)
+├── principles.md         # Enduring beliefs that guide decisions
+├── decisions/            # YYYYMMDD-HHMM-slug.md (ADRs, never archived)
+├── lessons/              # YYYYMMDD-HHMM-slug.md (failures & insights, 60-day retention)
+├── sessions/             # YYYYMMDD-HHMM-slug.md (timeline, 14-day retention)
+└── archive/
+    ├── lessons/          # Auto-archived monthly
+    └── sessions/         # Auto-archived weekly
 ```
 
 Plus:
-- Complete protocols in `CLAUDE.md` (200+ lines)
+- Protocols in `CLAUDE.md` (~90 lines)
 - User guide in `USING-CHRONICLE.md`
+- All files git-tracked and human-readable
 
 ---
 
-## Philosophy
+## What Chronicle Does
 
-In AI-assisted development, the AI-context becomes a primary artifact.
+✅ **Decision trail** - ADRs with rationale preserved  
+✅ **Lessons learned** - Structured failure documentation  
+✅ **Session narrative** - Timeline of project evolution  
+✅ **Project truth** - Purpose, scope, constraints, risks  
 
-Chronicle treats the _curated context_ and the _journey of understanding_ as just as valuable as the produced artifacts. Code can be regenerated; understanding cannot.
+## What Chronicle Does NOT Do
 
-**From your chronicle alone, someone should be able to recreate functionally equivalent work.**
+❌ **Task management** → Use Claude Tasks  
+❌ **AI context preservation** → Use Claude Memory  
+❌ **Replace git commits** → Complements with rationale
 
 ---
 
 ## Use Cases
 
-**Software Development**
-- Any projects that's built with AI assistance
-- Experiments and prototypes you might revisit
-- Learning new frameworks or languages
+**Team Projects**
+- Shared decision history visible to all
+- Onboarding new members
+- Enriched project context from your coworkers
 
-**DIY & Physical Projects**
-- Home renovations and improvements
-- Crafting and making projects
-- Garden planning and execution
+**Long-Running Projects**
+- Git-tracked evolution over months/years
+- Decision archaeology ("why did we choose X?")
+- Learning from documented failures
 
-**Creative & Professional Work**
-- Presentations and pitches
-- Research projects
-- Writing projects
-- Learning journeys
+**Solo Projects** *(when useful)*
+- Future you needs context after 6 months
+- Want git-trackable decision history
+- Planning to hand off eventually
 
 ---
 
-## After Initialization
+## How It Works
 
-The skill is no longer needed. Everything operates from `CLAUDE.md`:
+Chronicle runs automatically once initialized:
 
-```
-"What should I work on?"    → Shows active tasks
-"Mark task complete: X"     → Updates chronicle automatically
-"Update chronicle"          → Session end protocol
-```
+- **Decisions captured** when significant choices are made
+- **Lessons logged** when failures or surprises occur
+- **Principles added** when patterns emerge across decisions
+- **Sessions archived** weekly, lessons monthly (deterministic, conflict-free)
+- **Everything** git-tracked and human-readable
+
+---
+
+## Philosophy
+
+Chronicle treats *understanding the journey* as just as valuable than the actual produced code and artifacts. 
+
+Code can be regenerated from good context. Let's keep that around.
+
+**From `.chronicle/` alone, a new team member should be able to:**
+1. Understand what you're building and why
+2. Know what's been tried and what worked
+3. See what principles guide decisions
+4. Continue effectively without repeating past mistakes
+
+This is **institutional memory** - knowledge that outlives individual contributors and persists across team changes.
 
 ---
 
 ## Features
 
-✅ **Self-contained** - Works forever, even without the skill  
-✅ **Comprehensive** - Captures objectives, decisions, learnings, failures  
-✅ **Navigable** - Organized structure, not just logs  
-✅ **Regenerative** - Documentation sufficient to recreate the work  
-✅ **Universal** - Works for software, DIY, presentations, any project  
-✅ **Transparent** - All files are markdown, directly editable  
+✅ **Team-first** - Git-tracked, human-readable, works without Claude  
+✅ **Structured** - ADRs for decisions, lessons for failures, principles for patterns  
+✅ **Automatic** - Calendar-based archival, no manual intervention  
+✅ **Conflict-free** - Timestamped files (YYYYMMDD-HHMM-slug.md), deterministic rules  
+✅ **Token-efficient** - Always-load core ~2.5K tokens, selective ~7K total  
+✅ **Transparent** - All markdown files, directly editable
 
 ---
 
-## Development Status
+## Skill Structure
 
-**Current version:** 1.0.0 (in development)
-
-This repository is itself documented using chronicle - we're dogfooding the system.
-
-See `.chronicle/` directory for:
-- Complete design documentation
-- All decisions and rationale
-- Development session logs
-- What worked and what didn't
-
----
-
-## Installation
-
-*(Installation instructions will be added when skill is ready for release)*
+```
+chronicle-skill/
+├── SKILL.md                    # Skill definition for Claude CLI
+├── USING-CHRONICLE.md          # User guide (also created in projects)
+└── templates/
+    ├── truth-template.md       # Project DNA template
+    ├── principles-template.md  # Principles format
+    ├── decision-template.md    # ADR template
+    ├── lesson-template.md      # Lesson format
+    ├── session-template.md     # Session log format
+    └── claude-template.md      # CLAUDE.md protocols
+```
 
 ---
 
-## Documentation
+## Epilogue
 
-- **USING-CHRONICLE.md** - User guide (created in your project)
+### Documentation
 
----
+- **[SKILL.md](chronicle-skill/SKILL.md)** - Complete skill definition
+- **[USING-CHRONICLE.md](chronicle-skill/USING-CHRONICLE.md)** - Detailed usage guide
 
-## Contributing
+### Contributing
 
-Chronicle is currently in development. Contributions welcome after v1.0 release.
+Contributions welcome! Please open an issue to discuss proposed changes.
 
----
 
-## License
+### License
 
 MIT
 
----
-
-## Author
+### Author
 
 Richard Flamsholt
 richard@flamsholt.dk
-
----
-
-## Acknowledgments
-
-Inspired by:
-- Nate B Jones' domain memory pattern video
-- The concept of regenerative documentation
-- Real frustration with losing context in long-running AI projects
-
----
-
-**Chronicle: Never lose context in long-running projects**

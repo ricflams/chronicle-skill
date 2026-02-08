@@ -1,286 +1,232 @@
 # Using Chronicle
 
-**Keep AI collaboration alive across weeks, months, and team handoffs**
+**Team-shared institutional memory for your project**
 
 ---
 
 ## What is Chronicle?
 
-Chronicle is a documentation system that makes AI-assisted projects remember their own story. It's not just another folder of docs - it's the **source of truth** that lets you (or anyone else) pick up where you left off, even months later.
+Chronicle captures your project's decision history, learned lessons, and evolution in git-tracked markdown files. It provides what Claude Memory doesn't: **structured, searchable, team-shared** understanding that works independently of any individual developer or AI session.
 
-Think of it as a project journal that Claude actually reads and understands.
+**Philosophy:** *Decisions are timeless, lessons fade, sessions are ephemeral.*
 
 ---
 
-## Three Purposes in Action
+## What Chronicle is NOT
 
-### 1. Organize Tasks
+- **Not for task management** → Use Claude Tasks for this
+- **Not for AI context preservation** → Claude Memory handles personal continuity
+- **Not a replacement for git** → Complements commits with rationale and understanding
 
-**Before chronicle:**
-- "Uh, what was I working on again?"
-- Scattered TODOs in code comments and scratch files
-- No clear priority or blocking relationships
+---
 
-**With chronicle:**
-- Check `.chronicle/active-tasks.md` - instant work queue
-- Tasks organized: In Progress, Ready, Blocked, Backlog
-- Clear what to work on next, what's blocking what
+## File Structure
 
-### 2. Document the Journey
+```
+.chronicle/
+├── truth.md              # Project DNA (purpose, scope, constraints)
+├── principles.md         # Enduring beliefs that guide decisions
+├── decisions/            # YYYYMMDD-HHMM-slug.md (ADRs, never archived)
+├── lessons/              # YYYYMMDD-HHMM-slug.md (failures & insights, 60-day retention)
+├── sessions/             # YYYYMMDD-HHMM-slug.md (narrative timeline, 14-day retention)
+└── archive/
+    ├── lessons/          # Old lessons (auto-archived monthly)
+    └── sessions/         # Old sessions (auto-archived weekly)
+```
 
-**Before chronicle:**
-- "Why did we decide to use X instead of Y?"
-- "Did we try this approach already? What happened?"
-- Lost context between sessions, repeated mistakes
-
-**With chronicle:**
-- `.chronicle/context/decisions/` - Every major decision documented
-- `.chronicle/journey/lessons.md` - What failed, what worked, what we learned
-- `.chronicle/journey/session-log.md` - Detailed narrative of progress
-
-### 3. Preserve AI Context
-
-**Before chronicle:**
-- Every session starts: "So this is a web app that does X..."
-- 20 minutes explaining before productive work begins
-- Claude forgets important constraints and decisions
-
-**With chronicle:**
-- Claude reads `.chronicle/` automatically
-- Immediately knows project scope, constraints, recent work
-- Starts productive work in minutes, not hours
+**All files named:** `YYYYMMDD-HHMM-slug.md` (example: `20260208-1430-postgres-indexing.md`)
 
 ---
 
 ## Common Workflows
 
-### Starting Your Day
+### Team Onboarding (New Member Joins)
 
-```
-You: "List tasks" or "What should I work on?"
-Claude: [Scans tasks/ folder]
-        "You have 11 active tasks:
-         0001: Complete SKILL.md implementation (Richard)
-         0002: Create template files (Richard)
-         ..."
-        "Suggest starting with 0001?"
-```
+**Reading order:**
+1. `truth.md` - What is this project? (~5 min)
+2. `principles.md` - How do we make decisions? (~3 min)
+3. Recent `decisions/` - What have we chosen? (scan directory, ~5 min)
+4. Recent `lessons/` - What should we avoid? (scan directory, ~5 min)
+
+**Total: ~20 minutes to understand project context**
 
 ### During Work
 
-When you make a significant decision:
+**When making a significant decision:**
 ```
 You: "We're going with PostgreSQL instead of MongoDB"
-Claude: "I'll document that decision. What was the rationale?"
-        [Creates ADR in .chronicle/context/decisions/]
+Claude: "This seems significant. Should I create an ADR?"
+You: "Yes"
+Claude: [Creates .chronicle/decisions/20260208-1430-database-choice.md]
 ```
 
-When something fails:
+**When something fails or surprises:**
 ```
-You: "This approach didn't work - circular dependency issue"
-Claude: [Logs in .chronicle/journey/lessons.md]
-        "Documented. Want to try a different approach?"
-```
-
-### Ending Your Session
-
-```
-You: "Update chronicle"
-Claude: [Runs 7-step session end protocol]
-        1. Summarizes what we accomplished
-        2. Updates session-log.md with details
-        3. Moves completed tasks to archive
-        4. Creates ADRs for decisions made
-        5. Updates diagrams if needed
-        6. Documents problems/learnings
-        7. Checks if compression needed (weekly)
+You: "This approach didn't work - got circular dependency"
+Claude: "Should I log this as a lesson?"
+You: "Yes"
+Claude: [Creates .chronicle/lessons/20260208-1430-circular-dependency.md]
 ```
 
-### Returning After a Break
+**When a principle emerges:**
+```
+You: "We always choose simplicity over configurability"
+Claude: "Added principle: 'Choose simplicity over configurability'. 
+         Say 'that's not a principle' to undo."
+```
+
+### At Session End
+
+```
+You: "Let's wrap up"
+Claude: "Should I log this session?"
+You: "Yes"
+Claude: [Creates .chronicle/sessions/20260208-1430-component-refactor.md
+         with summary of work, changes, and next steps]
+```
+
+### Returning After Time Away
 
 ```
 You: "I haven't touched this in 2 months, what's the status?"
-Claude: [Reads .chronicle/project-truth.md and recent session-log]
-        "This is [project description]. Last session you completed X and Y.
-         Active tasks: [lists from tasks/ folder]. Most recent decision was [summary].
-         Ready to continue?"
-```
-
-### Team Handoff
-
-```
-New person: "I'm taking over this project"
-Claude: "Read .chronicle/project-truth.md (25min), then list tasks
-         to see current work. Come back with questions."
-         
-[45 minutes later]
-New person: "Okay, I understand the scope and current state"
-Claude: "Great! Let's continue with the highest priority task..."
+Claude: [Reads truth.md, principles.md, recent sessions/]
+        "This is [project description]. Recent work: [summary from sessions].
+         Latest principle: [X]. Ready to continue?"
 ```
 
 ---
 
-## File Structure Quick Reference
+## How Archival Works (Automatic)
 
-```
-.chronicle/
-├── project-truth.md       # WHAT & WHY: Scope, context, key decisions
-├── tasks/                 # WHAT'S NEXT: Active tasks (one file per task)
-│   ├── 0001-task-name.md
-│   └── 0002-other-task.md
-├── context/
-│   ├── visuals/          # Diagrams, sketches, photos
-│   └── decisions/        # ADRs (Architectural Decision Records)
-├── journey/
-│   ├── session-log.md    # WHAT HAPPENED: Detailed narrative
-│   ├── completed-tasks/  # Completed task files (archive, not in AI context)
-│   └── lessons.md        # Problems, experiments, learnings
-└── execution/
-    ├── parts-manifest.md # Components/materials/deliverables
-    ├── key-patterns.md   # Recurring techniques
-    ├── key-facts.md      # Config, URLs, reference data
-    └── validation-strategy.md # Testing/acceptance criteria
-```
+Chronicle automatically keeps folders bounded:
+
+**Every Monday (or when files >21 days exist):**
+- Sessions older than 14 days → moved to `archive/sessions/`
+
+**1st of each month (or when files >90 days exist):**
+- Lessons older than 60 days → moved to `archive/lessons/`
+
+**Decisions never archive** (they're timeless).
+
+You'll see: "Archived 3 sessions and 1 lesson. Undo: git checkout if needed."
 
 ---
 
-## Common Phrases (Cheat Sheet)
+## When to Create Each Type
 
-**Task Management:**
-- "List tasks" / "Show tasks"
-- "What should I work on?"
-- "Create task: [description]" (from planning mode: "Add this task")
-- "Mark [task name] complete" / "[Task] is complete"
-
-**Documentation:**
-- "Document this decision"
-- "Log this problem"
-- "Update chronicle" (session end)
-
-**Context:**
-- "What's the current status?"
-- "Why did we choose X?"
-- "Have we tried this before?"
-- "Show me recent progress"
-
-**Navigation:**
-- "Show me active tasks"
-- "What decisions were made?"
-- "What problems have we encountered?"
-
----
-
-## When Chronicle Shines
-
-✅ **Long-running projects** (weeks to months)
-✅ **Complex decision-making** (need to remember why)
-✅ **Team handoffs** (onboard new people quickly)
-✅ **Learning from failures** (don't repeat mistakes)
-✅ **AI-assisted development** (preserve context across sessions)
-
----
-
-## When Chronicle is Overkill
-
-❌ **Quick scripts** (< 1 day of work)
-❌ **Throwaway prototypes** (not meant to last)
-❌ **Solo one-off tasks** (no continuity needed)
+| Type | When | Example |
+|------|------|---------|
+| **ADR** (decision) | Significant choice with alternatives considered | Database selection, architecture approach, tech stack choice |
+| **Lesson** | Something fails, surprises, or teaches | Performance gotcha, deployment issue, experiment result |
+| **Principle** | Pattern emerges across multiple decisions | "We prefer composition over inheritance" (after 3rd instance) |
+| **Session** | After substantive work (Claude prompts) | Daily/weekly work summary for team context |
 
 ---
 
 ## Best Practices
 
-### 1. Update at Session End
-Don't wait! Say "update chronicle" when you stop working. Fresh memory = better documentation.
+### 1. Let Claude Capture Organically
+Don't force documentation. Claude suggests ADRs/lessons when appropriate. Confirm or skip.
 
-### 2. Document Decisions When Made
-Not later. Capture rationale while it's clear. Use: "Document this decision: [what] because [why]"
+### 2. Keep truth.md Current
+When scope changes, constraints shift, or risks emerge, update truth.md. It's the starting point for anyone (human or AI) engaging with the project.
 
-### 3. Log Failures Immediately
-When something doesn't work, log it: "Log problem: [approach] failed because [reason]"
+### 3. Articulate Tradeoffs
+Every principle should state what you accept by following it.  
+Every decision should state what becomes harder.
 
-### 4. Keep active-tasks.md Current
-Review weekly. Archive completed tasks. Add new ones as they emerge.
+### 4. Trust Archival
+Let old sessions/lessons move to archive/. They're still in git if you need them. Active folders stay scannable.
 
-### 5. Compress Session Log Weekly
-After 7+ days, say "compress session log". Moves key info to project-truth.md, archives details.
-
----
-
-## Tips & Tricks
-
-**Reading time optimization:**
-- project-truth.md: 25 min (comprehensive context)
-- active-tasks.md: 2 min (current state)
-- Recent session-log: 10 min (what happened lately)
-- **Total onboarding: ~45 minutes** (vs hours of code diving)
-
-**Context window efficiency:**
-- completed-tasks.md is excluded from AI context (humans only)
-- Keeps Claude focused on relevant information
-- Weekly compression prevents session-log bloat
-
-**Decision records are searchable:**
-```
-You: "Why did we choose MongoDB?"
-Claude: [Searches .chronicle/context/decisions/]
-        "See ADR-004: We chose MongoDB because [rationale]"
-```
+### 5. Scan Before Deep Work
+Before tackling a complex area, ask: "Are there lessons about [database/performance/deployment]?" Claude will check tags and load relevant context.
 
 ---
 
-## Troubleshooting
+## Team Collaboration
 
-**"Claude isn't reading chronicle files"**
-→ Check that CLAUDE.md lists files correctly in "Always in context" section
+**Multiple people working same day?**
+- Timestamped files avoid collisions: `20260208-0930-alice-api-work.md` vs `20260208-1400-bob-ui-refactor.md`
 
-**"Too much duplication between files"**
-→ Each fact should live in ONE place. Use references/links to avoid copying.
+**Archival conflicts?**
+- Deterministic calendar-based rules mean everyone archives at same times
+- If both Alice and Bob work on March 1st, both move same February files → no conflicts
 
-**"session-log.md is getting huge"**
-→ Run weekly compression: "compress session log"
+**Shared principles?**
+- principles.md is git-tracked
+- Changes go through normal PR review
+- Keeps team aligned on values
 
-**"Don't know where to document something"**
-→ Ask: "Where should I document [X]?" Claude knows the structure.
+---
+
+## Token Efficiency
+
+Chronicle is designed for minimal token overhead:
+
+**Always loaded (~2.5K tokens):**
+- truth.md (~1500-2000 tokens)
+- principles.md (~700-1000 tokens)
+
+**Selectively loaded (~4K tokens):**
+- Recent lesson frontmatter (scan to find relevant)
+- Recent session frontmatter (scan for context)
+- Full ADRs/lessons only when relevant
+
+**Total: ~7K tokens for full selective context** (vs loading all files)
+
+---
+
+## Common Questions
+
+**"Where should I document [X]?"**
+Ask Claude. It knows the structure.
+
+**"Can I edit these files manually?"**
+Yes! They're just markdown. Edit in any text editor.
+
+**"What if I want to undo an auto-added principle?"**
+Say "that's not a principle" immediately, or just delete it from principles.md.
+
+**"Do I need to compress anything?"**
+No. Archival is automatic. truth.md and principles.md grow slowly and compress when needed.
 
 ---
 
 ## Philosophy
 
-In AI-assisted development, **documentation becomes the primary artifact**. Code can be regenerated from good context. Context cannot be regenerated from code alone.
+Chronicle treats **understanding as more valuable than artifacts**. Code can be regenerated from good context. Context cannot be regenerated from code alone.
 
-Chronicle treats documentation as the source of truth. From `.chronicle/` alone, someone should be able to:
+From `.chronicle/` alone, a new team member (or future you) should be able to:
 1. Understand what you're building and why
-2. See what's been tried and what worked
-3. Know what to work on next
-4. Continue building effectively
+2. Know what's been tried and what worked
+3. See what principles guide decisions
+4. Continue effectively without repeating past mistakes
 
-**This is regenerative documentation** - it grows with your project and preserves what matters.
+This is **institutional memory** - knowledge that outlives individual contributors and persists across team changes.
 
 ---
 
 ## Getting Help
 
-**Within a session:**
-- "How do I [task] using chronicle?"
-- "Show me an example of [workflow]"
+**During work:**
+- "How should I document this decision?"
+- "Is there a lesson about [X]?"
+- "Show me recent decisions"
 
-**For complex questions:**
-- Read the relevant file in `.chronicle/` first
-- Check recent session-log for similar situations
-- Ask Claude with context: "In our chronicle system, how should I..."
+**For team handoffs:**
+- "Help me onboard to this project" → Claude guides through truth.md, principles, recent work
 
 ---
 
 ## Next Steps
 
-1. **Start using it** - Say "What should I work on?"
-2. **End sessions properly** - Say "Update chronicle" when you stop
-3. **Document as you go** - Decisions, problems, learnings - capture them fresh
-4. **Review weekly** - Check active-tasks.md, compress session-log if needed
+1. **Read truth.md** - Understand the project
+2. **Skim principles.md** - Know how decisions are made
+3. **Check recent lessons** - Avoid known pitfalls  
+4. **Start working** - Chronicle captures as you go
 
-Chronicle gets more valuable the more you use it. The earlier you start, the better your project's memory becomes.
+Chronicle gets more valuable with use. The earlier your team adopts it, the richer your institutional memory becomes.
 
 ---
 
-*This guide lives at project root alongside CLAUDE.md. It's for humans - CLAUDE.md is for AI.*
+*This guide is for humans. CLAUDE.md contains the protocols that Claude follows automatically.*
